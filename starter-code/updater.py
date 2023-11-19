@@ -1,3 +1,4 @@
+# list of monsters
 updates = []
 
 def updateAll():

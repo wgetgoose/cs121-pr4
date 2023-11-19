@@ -1,6 +1,7 @@
 import os
 
 def clear():
+    # clear shell commands dependent in windows or not windows
     os.system('cls' if os.name == 'nt' else 'clear')
 
 class Item:

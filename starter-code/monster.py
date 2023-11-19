@@ -7,6 +7,7 @@ class Monster:
         self.health = health
         self.room = room
         room.addMonster(self)
+        # monsters are added to list of elements in global updater
         updater.register(self)
     def update(self):
         if random.random() < .5:

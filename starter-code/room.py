@@ -1,5 +1,15 @@
 import random
 
+
+# Room Class Summary
+# Each room has the following lists
+#   monsters --> Tracks monsters in the room, appended by functions
+#       addMonster and removeMonster imported into main.py
+#   exits --> tracks the connections between the rooms we create.
+#       very similar to linked lists, where rooms are "nodes" and our start
+#       room is the "root"
+#   items --> item logic in rooms is par with monsters
+#   
 class Room:
     def __init__(self, description):
         self.desc = description

@@ -1,6 +1,7 @@
 import os
 
 def clear():
+    # cls if on windows, else clear if on zsh/bash (macOS / linux)
     os.system('cls' if os.name == 'nt' else 'clear')
 
 class Player:
