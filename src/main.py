@@ -111,6 +111,10 @@ while playing and player.alive:
         elif firstArgument == "exit" or firstArgument == "quit" or firstArgument == "quit()":
             playing = False
         elif firstArgument == "attack":
+            if player.equipped == None:
+                print("Please equip a weapon")
+                commandSuccess = False
+                continue
             targetName = command[7:]
             target = player.loc.getMonsterByName(targetName)
             if target != False:
