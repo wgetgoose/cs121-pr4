@@ -1,5 +1,5 @@
 import os
-from term import animationPrint, hold, clear
+from term import animationPrint, hold, clear, animateHold
 
 class Item:
     def __init__(self, name, desc, id):
@@ -9,9 +9,8 @@ class Item:
         self.id = id
     def describe(self):
         clear()
-        print(self.desc)
-        print()
-        input("Press enter to continue...")
+        animationPrint(self.desc)
+        hold()
     def putInRoom(self, room):
         self.loc = room
         room.addItem(self)
@@ -21,10 +20,10 @@ class Note(Item):
         Item.__init__(self, name, desc, id)
         self.type = "note"
         self.content = ""
-    def use(self):
+    def use(self, player):
         clear()
         animationPrint(self.content)
-        hold()
+        animateHold()
 
 class Weapon(Item):
     def __init__(self, name, desc, damage, id):
@@ -43,3 +42,8 @@ class Potion(Item):
         Item.__init__(self, name, desc, id)
         self.type = "potion"
         self.heal = heal
+    def use(self, player):
+        player.health = player.health + self.heal
+        print("You now have " + str(player.health) + " health!")
+        player.items.remove(self)
+        hold()

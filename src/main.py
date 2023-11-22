@@ -2,12 +2,11 @@
 from room import Room, Origin
 from player import Player
 from monster import Monster
-from term import clear, showHelp, hold, animationPrint
+from term import *
 from world import World
 from combat import combat
-from item import Weapon, Note, Food
+from item import Weapon, Note, Food, Potion
 import updater
-import term
 
 
 
@@ -30,14 +29,14 @@ Pursue with vigilance,
 Jeremiah
 """
     introNote.putInRoom(origin)
-    tutorialMonster = Monster("Gregory", "a weakling knave ", 15, 2, newID())
-    tutorialMonster.putInRoom(origin)
+    tutorialMonster = Monster("Gregory", "a weakling knave ", 15, 2, origin, newID())
     pocketKnife = Weapon("Pocket Knife", "a knife you brought with you from the outside", 3, newID())
     player.items.append(pocketKnife)
-    # player.equipped = pocketKnife
+    tutorialPotion = Potion("Elixir", "restores health", 15, newID())
+    tutorialPotion.putInRoom(origin)
+    # printIntro()
 
-    # term.printIntro()
-globalID = 0
+globalID = -1
 world = World()
 origin = Origin("Origin")
 player = Player()
@@ -46,7 +45,7 @@ player.name = input("Before we begin, what is your name?\n> ")
 playing = True
 
 while playing and player.alive:
-    term.printSituation(player)
+    printSituation(player)
     commandSuccess = False
     timePasses = False
     while not commandSuccess:
@@ -64,31 +63,41 @@ while playing and player.alive:
             player.goDirection(commandWords[1]) 
             timePasses = True
         elif firstArgument == "pickup":  #can handle multi-word objects
-            targetName = command[7:]
-            target = player.loc.getItemByName(targetName)
-            if target != False:
-                player.pickup(target)
+            if len(player.items) >= 30:
+                print("Inventory is full. Please drop an item.")
+                commandSuccess = False
             else:
-                print("No such ")
+                targetName = command[7:]
+                target = player.loc.getItemByName(targetName)
+                if target != False:
+                    player.pickup(target)
+                else:
+                    print("No such item")
+                    commandSuccess = False
+        elif firstArgument == "drop":
+            targetName = command[5:]
+            target = player.getItemByName(targetName)
+            if target != False:
+                player.drop(target)
+            else:
+                print("No such item")
                 commandSuccess = False
         elif firstArgument == "use":
-            targetItem = command[4:]
-            for item in player.items:
-                if name == targetItem:
-                    use()
-                    term.printSituation(player)
-                else:
-                    print("Invalid input, please try again")
-                    commandSuccess = False
+            target = command[4:]
+            item = player.getItemByName(target)
+            if item != False:
+                item.use(player)
+            else:
+                print("Not a valid item. Please try again.")
+                commandSuccess = False
         elif firstArgument == "equip":
-            targetItem = command[6:]
-            for item in player.items:
-                if name == targetItem:
-                    player.equipped = item
-                    print("Successfully equipped " + name)
-                else:
-                    print("Cannot equip. Item not in inventory")
-                    commandSuccess = False
+            target = command[6:]
+            item = player.getItemByName(target)
+            if item != False:
+                player.equipped = item
+            else:
+                print("Not a valid item. Please try again.")
+                commandSuccess = False
         elif firstArgument == "sleep":
             player.day = player.day + 1
             clear()
@@ -114,6 +123,7 @@ while playing and player.alive:
                     hold()
                     target.die()
             else:
+                print("Invalid opponent. Please try again")
                 commandSuccess = False
         else:
             print("Invalid command. Please try again")

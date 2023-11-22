@@ -4,13 +4,13 @@ from term import combatSituation, hold
 def criticalHit(hp):
     rand = randint(1, 100)
     if rand <= 10:
-        return round((hp * 1.25), 1)
+        return (hp * 1.25)
     else:
         return hp
 
 def turn(attacker, receiver):
     damage = attacker.attack()
-    receiver.health = round((receiver.health - damage), 1)
+    receiver.health = round((receiver.health - damage))
     print(attacker.name + " deals " + str(damage) + " damage to " + receiver.name + ". Their health is now " + str(receiver.health))
 
 def combat(player, monster):

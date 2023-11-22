@@ -19,11 +19,11 @@ def animateHold():
 
 def printSituation(player):
     clear()
-    print("It is Day " + str(player.day))
-    print("You are currently located in " + str(player.loc.desc))
+    print("Day " + str(player.day) + " | Health: " + str(player.health) + " | Location: " + str(player.loc.desc) + " | Items in Inventory: " + str(len(player.items)))
+    print("C")
     print()
     if player.loc.hasMonsters():
-        print("Mobs:")
+        print(str(player.loc.desc) + "'s Occupants:")
         for m in player.loc.monsters:
             print(m.name)
         print()
@@ -45,9 +45,10 @@ def showHelp():
     clear()
     print("go <direction> -- moves you in the given direction")
     print("inventory -- opens your inventory")
-    print("sleep -- replenish tiredness and the world begins a new day")
     print("pickup <item> -- picks up the item")
+    print("drop <item> -- drop an item from your inventory")
     print("attack <monster> -- attacks the given enemy")
+    print("sleep -- replenish tiredness and the world begins a new day")
     print()
     input("Press enter to continue...")
 
