@@ -52,3 +52,7 @@ class Room:
         return False
     def randomNeighbor(self):
         return random.choice(self.exits)[1]
+
+class Origin(Room):
+    def __init__(self, desc):
+        Room.__init__(self, desc)

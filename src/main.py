@@ -1,67 +1,46 @@
-from room import Room
+
+# local modules
+from room import Room, Origin
 from player import Player
-from item import Item
 from monster import Monster
-import os
+from term import clear
+from world import World
 import updater
+import term
+import item
 
+
+
+def initialize():
+    world.rooms.append(origin)
+    player.location = origin
+    introNote = item.Note("Welcome", "a message from those who traveled before", world.newID())
+    introNote.content = "Forlorn here I write in warning, to those who travel after me.\n\
+                         The cave from here is treacherous. Evils line the crevices of \n\
+                         those who dare to enter. Yet, one is left no choice. Do as I have,\n\
+                         kill the knaves that line the cellars, and you will find salvation.\n\
+                         Whether one is the same man after this journey, alas, is your own question."
+    introNote.loc = origin
+    term.printIntro()
+
+world = World()
+origin = Origin("room 0")
 player = Player()
-
-def createWorld():
-    a = Room("You are in room 1")
-    b = Room("You are in room 2")
-    c = Room("You are in room 3")
-    d = Room("You are in room 4")
-    Room.connectRooms(a, "east", b, "west")
-    Room.connectRooms(c, "east", d, "west")
-    Room.connectRooms(a, "north", c, "south")
-    Room.connectRooms(b, "north", d, "south")
-    i = Item("Rock", "This is just a rock.")
-    i.putInRoom(b)
-    player.location = a
-    Monster("Bob the monster", 20, b)
-
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-def printSituation():
-    clear()
-    print(player.location.desc)
-    print()
-    if player.location.hasMonsters():
-        print("This room contains the following monsters:")
-        for m in player.location.monsters:
-            print(m.name)
-        print()
-    if player.location.hasItems():
-        print("This room contains the following items:")
-        for i in player.location.items:
-            print(i.name)
-        print()
-    print("You can go in the following directions:")
-    for e in player.location.exitNames():
-        print(e)
-    print()
-
-def showHelp():
-    clear()
-    print("go <direction> -- moves you in the given direction")
-    print("inventory -- opens your inventory")
-    print("pickup <item> -- picks up the item")
-    print()
-    input("Press enter to continue...")
-
-
-
-createWorld()
+initialize()
 playing = True
+
+# TO-DO: Write some code to make the text transition from intro to situation smoother
 while playing and player.alive:
-    printSituation()
+    term.printSituation(player)
     commandSuccess = False
     timePasses = False
     while not commandSuccess:
         commandSuccess = True
-        command = input("What now? ")
+        command = input( ("\033[5m") + ">>>" + ("\033[0m") + " " )
+        if not command:
+            print("Invalid input, please try again")
+            commandSuccess = False
+            continue
         commandWords = command.split()
         if commandWords[0].lower() == "go":   #cannot handle multi-word directions
             player.goDirection(commandWords[1]) 
@@ -74,11 +53,13 @@ while playing and player.alive:
             else:
                 print("No such item.")
                 commandSuccess = False
+        elif commandWords[0].lower() == "sleep":
+            world.day = world.day + 1
         elif commandWords[0].lower() == "inventory":
-            player.showInventory()        
+            player.showInventory()      
         elif commandWords[0].lower() == "help":
             showHelp()
-        elif commandWords[0].lower() == "exit":
+        elif commandWords[0].lower() == ("exit" or "quit"): 
             playing = False
         elif commandWords[0].lower() == "attack":
             targetName = command[7:]
@@ -89,11 +70,7 @@ while playing and player.alive:
                 print("No such monster.")
                 commandSuccess = False
         else:
-            print("Not a valid command")
+            print("Invalid input, please try again")
             commandSuccess = False
     if timePasses == True:
         updater.updateAll()
-
-    
-
-

@@ -1,15 +1,12 @@
 import os
 
-def clear():
-    # cls if on windows, else clear if on zsh/bash (macOS / linux)
-    os.system('cls' if os.name == 'nt' else 'clear')
-
 class Player:
     def __init__(self):
         self.location = None
         self.items = []
-        self.health = 50
+        self.health = 70
         self.alive = True
+        self.tiredness = 0
     def goDirection(self, direction):
         self.location = self.location.getDestination(direction)
     def pickup(self, item):
