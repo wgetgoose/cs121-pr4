@@ -1,18 +1,24 @@
 import os
+import random
+from term import clear
+from combat import criticalHit
 
 class Player:
     def __init__(self):
-        self.location = None
+        self.name = "Player"
+        self.loc = None
         self.items = []
         self.health = 70
         self.alive = True
-        self.tiredness = 0
+        self.energy = 80
+        self.equipped = None
+        self.day = 0
     def goDirection(self, direction):
-        self.location = self.location.getDestination(direction)
+        self.loc = self.loc.getDestination(direction)
     def pickup(self, item):
         self.items.append(item)
         item.loc = self
-        self.location.removeItem(item)
+        self.loc.removeItem(item)
     def showInventory(self):
         clear()
         print("You are currently carrying:")
@@ -21,20 +27,12 @@ class Player:
             print(i.name)
         print()
         input("Press enter to continue...")
-    def attackMonster(self, mon):
-        clear()
-        print("You are attacking " + mon.name)
-        print()
-        print("Your health is " + str(self.health) + ".")
-        print(mon.name + "'s health is " + str(mon.health) + ".")
-        print()
-        if self.health > mon.health:
-            self.health -= mon.health
-            print("You win. Your health is now " + str(self.health) + ".")
-            mon.die()
+    def attack(self):
+        if self.equipped == None:
+            return
         else:
-            print("You lose.")
-            self.alive = False
-        print()
-        input("Press enter to continue...")
-
+            damage = self.equipped.damage
+            return criticalHit(damage)
+    def die(self):
+        print("You have been defeated. Try again!")
+        self.alive = False

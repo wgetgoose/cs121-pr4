@@ -52,6 +52,12 @@ class Room:
         return False
     def randomNeighbor(self):
         return random.choice(self.exits)[1]
+    def listItems(self):
+        items = ""
+        for i in self.items:
+            items = items + i.name + " "
+        return items
+
 
 class Origin(Room):
     def __init__(self, desc):
