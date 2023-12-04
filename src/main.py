@@ -1,47 +1,31 @@
 # local modules
-from room import Room, Origin
+from room import Room
 from player import Player
 from monster import Monster
 from term import *
 from world import World
+from generator import generate
 from combat import combat
 from item import Weapon, Note, Food, Potion
 import updater
 
 
-
-def newID():
-    global globalID
-    globalID = globalID + 1
-    return globalID
-
 def initialize():
-    world.rooms.append(origin)
-    player.loc = origin
-    introNote = Note("Jeremiah", "a message from those who traveled before", newID())
-    introNote.content = """
-Forlorn here I write in warning, to those who travel after me.
-The cave from here is treacherous. Evils line the crevices of
-those who dare to enter. Yet, one is left no choice. Do as I have,
-kill the knaves that line the cellars, and you will find salvation.
-Whether one is the same man after this journey, alas, is your own question.
-Pursue with vigilance,
-Jeremiah
-"""
-    introNote.putInRoom(origin)
-    tutorialMonster = Monster("Gregory", "a weakling knave ", 15, 2, origin, newID())
-    pocketKnife = Weapon("Pocket Knife", "a knife you brought with you from the outside", 3, newID())
-    player.items.append(pocketKnife)
-    tutorialPotion = Potion("Elixir", "restores health", 15, newID())
-    tutorialPotion.putInRoom(origin)
-    # printIntro()
+    global player
+    global world
+    g = generate()
+    world = g[0]
+    player = g[1]
 
-globalID = -1
-world = World()
-origin = Origin("Origin")
-player = Player()
+inputChar = ("\033[5m") + ">" + ("\033[0m") + " "
+
+
+
+world = None
+player = None
 initialize()
-player.name = input("Before we begin, what is your name?\n> ")
+player.name = input("Before we begin, what is your name?\n" + inputChar)
+printIntro()
 playing = True
 
 while playing and player.alive:

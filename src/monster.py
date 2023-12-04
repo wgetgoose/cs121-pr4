@@ -14,8 +14,9 @@ class Monster:
         # monsters are added to list of elements in global updater
         updater.register(self)
     def update(self):
-        if random.random() < .5:
-            self.moveTo(self.room.randomNeighbor())
+        return
+        # if random.random() < .5:
+        #     self.moveTo(self.loc.randomNeighbor())
     def moveTo(self, room):
         self.room.removeMonster(self)
         self.room = room

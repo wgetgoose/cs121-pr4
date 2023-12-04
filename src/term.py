@@ -4,6 +4,11 @@ from time import sleep
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+def parse(filepath):
+    with open(filepath, "r") as file:
+        data = file.read()
+    return data
+
 # dynamic text print speed
 def animationPrint(text, delay=0.05):
     for char in text:
@@ -19,8 +24,7 @@ def animateHold():
 
 def printSituation(player):
     clear()
-    print("Day " + str(player.day) + " | Health: " + str(player.health) + " | Location: " + str(player.loc.desc) + " | Items in Inventory: " + str(len(player.items)))
-    print("C")
+    print("Day " + str(player.day) + " | Health: " + str(player.health) + " | Location: " + str(player.loc.desc) + " | Equipped: " + str((player.equipped.name)))
     print()
     if player.loc.hasMonsters():
         print(str(player.loc.desc) + "'s Occupants:")
@@ -56,11 +60,7 @@ def showHelp():
 # Don't like how messy the text is. Will probably change these to text files or some other sort of storage.
 def printIntro():
     clear()
-    intro = """You find yourself lying face first in the dirt, groggy and flustered, unsure of where you are.
-Rolling over, you see the sun shining down through a hole in the ground.
-Of course, this is where you just fell through...
-Out of the corner of your eye you see a sheet of paper. To pick it up, use the commands available by typing \"help\"
-"""
+    intro = parse('content/welcome.txt')
     animationPrint(intro)
     sleep(0.1)
     animateHold()

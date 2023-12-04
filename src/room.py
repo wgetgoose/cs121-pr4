@@ -11,21 +11,19 @@ import random
 #   items --> item logic in rooms is par with monsters
 #   
 class Room:
-    def __init__(self, description):
-        self.desc = description
+    def __init__(self, desc, exits, world):
+        self.desc = desc
+        self.exits = exits
+        self.world = world
+        self.world.register(self)
         self.monsters = []
-        self.exits = []
         self.items = []
-    def addExit(self, exitName, destination):
-        self.exits.append([exitName, destination])
+    def addExit(self, direction, destination):
+        self.exits.append([direction, destination])
     def getDestination(self, direction):
         for e in self.exits:
             if e[0] == direction:
                 return e[1]
-    def connectRooms(room1, dir1, room2, dir2):
-        #creates "dir1" exit from room1 to room2 and vice versa
-        room1.addExit(dir1, room2)
-        room2.addExit(dir2, room1)
     def exitNames(self):
         return [x[0] for x in self.exits]
     def addItem(self, item):
@@ -57,8 +55,3 @@ class Room:
         for i in self.items:
             items = items + i.name + " "
         return items
-
-
-class Origin(Room):
-    def __init__(self, desc):
-        Room.__init__(self, desc)
