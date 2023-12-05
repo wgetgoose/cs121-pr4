@@ -1,5 +1,5 @@
 from random import randint
-from term import combatSituation, hold
+import term
 
 def criticalHit(hp):
     rand = randint(1, 100)
@@ -11,7 +11,7 @@ def criticalHit(hp):
 def turn(attacker, receiver):
     damage = attacker.attack()
     receiver.health = round((receiver.health - damage))
-    print(attacker.name + " deals " + str(damage) + " damage to " + receiver.name + ". Their health is now " + str(receiver.health))
+    term.combatStatus(attacker, receiver, damage)
 
 def combat(player, monster):
     first = randint(0,1)
@@ -26,8 +26,7 @@ def combat(player, monster):
     print(first.name + " goes first")
     while fighting == True:
         turnCount = turnCount + 1
-        combatSituation(player, monster, turnCount)
-        hold()
+        term.combatSituation(player, monster, turnCount)
         turn(first, second)
         if second.health <= 0:
             hold()

@@ -25,7 +25,7 @@ class Room:
             if e[0] == direction:
                 return e[1]
     def exitNames(self):
-        return [x[0] for x in self.exits]
+        return [e[0] for e in self.exits]
     def addItem(self, item):
         self.items.append(item)
     def removeItem(self, item):

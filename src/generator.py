@@ -11,8 +11,9 @@ def newID():
     global world
     return world.newID()
 
-def newRoom(desc, exits):
+def newRoom(desc, exits=[]):
     global world
+    # allow room to set self.world
     r = Room(desc, exits, world)
     return r
 
@@ -23,7 +24,7 @@ def connectRooms(room1, dir1, room2, dir2):
 
 
 def generate():
-    origin = newRoom("Origin", [])
+    origin = newRoom("Origin")
     player = Player()
     player.loc = origin
     pocketKnife = Weapon("Pocket Knife", "a knife you brought with you from the outside", 3, newID())
@@ -35,9 +36,10 @@ def generate():
     tutorialMonster = Monster("Gregory", "a weakling knave ", 15, 2, origin, newID())
     tutorialPotion = Potion("Elixir", "restores health", 15, newID())
     tutorialPotion.putInRoom(origin)
-    atreus = newRoom("Atreus", [])
-    crypt = newRoom("King's Crypt", [])
-    msEntry = newRoom("Mineshaft Entry", [])
+    atreus = newRoom("Atreus")
+    crypt = newRoom("King's Crypt")
+    msEntry = newRoom("Mineshaft Entry")
+    # redundant. pass exits during room creation?
     connectRooms(origin, "left", atreus, "right")
     connectRooms(atreus, "up", crypt, "down")
     connectRooms(origin, "right", msEntry, "left")

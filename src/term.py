@@ -4,6 +4,9 @@ from time import sleep
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+def inputChar():
+    return ("\033[5m") + ">" + ("\033[0m") + " "
+
 def parse(filepath):
     with open(filepath, "r") as file:
         data = file.read()
@@ -43,17 +46,15 @@ def printSituation(player):
 
 def combatSituation(player, monster, turn):
     clear()
-    print("Turn " + str(turn) + " | Your health: " + str(player.health) + " | " + monster.name + "'s health: " + str(monster.health))
+    animationPrint("Turn " + str(turn) + " | Your health: " + str(player.health) + " | " + monster.name + "'s health: " + str(monster.health), 0.02)
+    hold()
+
+def combatStatus(attacker, receiver, damage):
+    print(attacker.name + " deals " + str(damage) + " damage to " + receiver.name + ". Their health is now " + str(receiver.health))
 
 def showHelp():
     clear()
-    print("go <direction> -- moves you in the given direction")
-    print("inventory -- opens your inventory")
-    print("pickup <item> -- picks up the item")
-    print("drop <item> -- drop an item from your inventory")
-    print("attack <monster> -- attacks the given enemy")
-    print("sleep -- replenish tiredness and the world begins a new day")
-    print()
+    print(parse("content/help.txt"))
     input("Press enter to continue...")
 
 
@@ -64,3 +65,16 @@ def printIntro():
     animationPrint(intro)
     sleep(0.1)
     animateHold()
+
+def showInventory(player):
+    clear()
+    print("You are currently carrying:")
+    print()
+    for i in player.items:
+        print(i.name)
+    print()
+    input("Press enter to continue...")
+
+def playerDeath(player):
+    print("You have been defeated. Try again!")
+    player.alive = False

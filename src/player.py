@@ -1,6 +1,6 @@
 import os
 import random
-from term import clear
+import term
 from combat import criticalHit
 
 class Player:
@@ -23,13 +23,7 @@ class Player:
         item.loc = self.loc
         self.items.remove(item)
     def showInventory(self):
-        clear()
-        print("You are currently carrying:")
-        print()
-        for i in self.items:
-            print(i.name)
-        print()
-        input("Press enter to continue...")
+        term.showInventory(self)
     def attack(self):
         if self.equipped == None:
             return
@@ -38,10 +32,8 @@ class Player:
             return criticalHit(damage)
     def getItemByName(self, name):
         for item in self.items:
-            if item.name == name:
+            if item.name.lower() == name.lower():
                 return item
         return False
-
     def die(self):
-        print("You have been defeated. Try again!")
-        self.alive = False
+        term.playerDeath(self)

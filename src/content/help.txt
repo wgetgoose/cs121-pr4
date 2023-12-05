@@ -1,0 +1,7 @@
+go <direction> -- moves you in the given direction
+inventory -- opens your inventory
+pickup <item> -- picks up the item
+drop <item> -- drop an item from your inventory
+attack <monster> -- attacks the given enemy
+sleep -- replenish tiredness and the world begins a new day
+Press enter to continue...

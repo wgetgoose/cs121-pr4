@@ -2,13 +2,12 @@
 from room import Room
 from player import Player
 from monster import Monster
-from term import *
 from world import World
 from generator import generate
 from combat import combat
 from item import Weapon, Note, Food, Potion
 import updater
-
+import term
 
 def initialize():
     global player
@@ -17,10 +16,7 @@ def initialize():
     world = g[0]
     player = g[1]
 
-inputChar = ("\033[5m") + ">" + ("\033[0m") + " "
-
-
-
+inputChar = term.inputChar()
 world = None
 player = None
 initialize()
@@ -35,7 +31,7 @@ while playing and player.alive:
     while not commandSuccess:
         commandSuccess = True
         # ASCII escape chars to make input command "blink" on certain compatible terminals
-        command = input( ("\033[5m") + ">" + ("\033[0m") + " " )
+        command = input(inputChar)
         # Fixes "index out of range" when user presses enter instead of entering command
         if not command:
             print("Invalid command! Please try again")
