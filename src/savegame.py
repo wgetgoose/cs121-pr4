@@ -24,6 +24,7 @@ class Save():
             json.dump(d, outfile)
 
 def initSave(name):
+
     s = Save(name)
     return s
 
@@ -31,7 +32,10 @@ def newID():
     return 1 + len(os.listdir(savePath))
 
 def checkSaves():
-    if os.listdir(savePath) == []:
+    if "saves" not in os.listdir(os.getcwd()):
+        os.mkdir(os.getcwd() + "/saves")
+        return False
+    elif os.listdir(savePath) == []:
         return False
     else:
         return True

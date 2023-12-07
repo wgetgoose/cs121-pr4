@@ -15,7 +15,6 @@ class Save():
         self.id = id
         self.dir = dir
 
-
 def dictParse(filepath):
     dict = {}
     with open(filepath, "r") as infile:
