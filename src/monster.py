@@ -18,6 +18,5 @@ class Monster:
         room.addMonster(self)
     def die(self):
         self.loc.removeMonster(self)
-        updater.deregister(self)
     def getDamage(self):
         return self.damage
