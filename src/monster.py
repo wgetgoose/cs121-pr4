@@ -1,5 +1,3 @@
-import updater
-
 class Monster:
     def __init__(self, name, desc, health, damage, room, id):
         self.name = name
@@ -10,7 +8,6 @@ class Monster:
         self.loc = room
         room.monsters.append(self)
         # monsters are added to list of elements in global updater
-        updater.register(self)
     def update(self):
         return
         # if random.random() < .5:
