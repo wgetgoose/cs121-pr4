@@ -28,7 +28,7 @@ First, navigate into the `src` dir. Then, run `python3 main.py`. Save files will
     1. Multiple save files
     2. Ability for user to select save file on load
     3. Using a save file skips the intro sequence
-13. An slightly expanded (not randomly generated) map
+13. A slightly expanded (not randomly generated) map
 14. “Use” command, allowing players to use the same command for potions and notes
 15. Win condition
 16. Custom room names, monster names
@@ -39,5 +39,4 @@ First, navigate into the `src` dir. Then, run `python3 main.py`. Save files will
 - [ ]  Reduce case sensitivity by implementing `lower()` on various
 - [ ]  Do not allow player to load save after dying
 - [ ]  No code comments
-- [ ]  Map detail is very limited. Used a lot of time implementing save
-- [ ]  
+- [ ]  Gameplay loop is very limited. Used a lot of time implementing save
