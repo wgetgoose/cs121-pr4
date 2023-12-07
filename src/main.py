@@ -26,20 +26,30 @@ def createSave(name):
     for room in world.rooms:
         savegame.roomSave(s, room)
     savegame.playerSave(s, player)
+    return s
 
 def loadSave(save):
     global player
     global world
+    global currSave
     load.roomLoad(save, world)
     for room in world.rooms:
         for entry in room.exits:
             entry[1] = world.getRoomByName(entry[1])
     player = load.playerLoad(save, world)
+    currSave = save
+
+def overwriteSave(save):
+    global currSave
+    savename = save.name
+    load.overwrite(save.dir)
+    currSave = createSave(savename)
 
 
 inputChar = term.inputChar()
 world = World()
 player = None
+currSave = None
 
 if savegame.checkSaves() == False:
     initialize()
@@ -50,6 +60,8 @@ else:
         target = input("Please select save file by name: ")
         s = load.getSave(target)
         loadSave(s)
+    if command == "N":
+        initialize()
 
 playing = True
 
@@ -143,9 +155,7 @@ while playing and player.alive:
             else:
                 save = load.getSave(target)
                 if save != None:
-                    savename = save.name
-                    load.overwrite(save.dir)
-                    createSave(savename)
+                    overwriteSave(save)
                 else:
                     print("Error, try again")
                     commandSuccess = False
