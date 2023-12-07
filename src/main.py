@@ -134,8 +134,20 @@ while playing and player.alive:
                 print("Invalid opponent. Please try again")
                 commandSuccess = False
         elif firstArgument == "save":
-            createSave(input("Name of savefile?: "))
-            playing = False
+            target = command[5:]
+            if target == "list":
+                load.listSaves()
+            if target == "":
+                print("Creating new save...")
+                createSave(input("Name of save?: "))
+            save = load.getSave(target)
+            if save != None:
+                savename = save.name
+                load.overwrite(save.dir)
+                createSave(savename)
+            else:
+                print("Error, try again")
+                commandSuccess = False
         else:
             print("Invalid command. Please try again")
             commandSuccess = False

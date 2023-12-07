@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 from room import Room
 from player import Player
 from monster import Monster
@@ -35,6 +36,7 @@ def getSave(name):
             d = dictParse(dir + "/" + name + "/save.json")
             s = Save(d['name'], d['date'], d['id'], d['dir'])
             return s
+    return None
 
 def roomLoad(save, world):
     dict = None
@@ -98,3 +100,6 @@ def itemLoad(loc, dir):
             loc.items.append(i)
         else:
             return
+        
+def overwrite(dir):
+    shutil.rmtree(dir)
