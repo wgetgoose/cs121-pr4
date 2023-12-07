@@ -1,4 +1,3 @@
-# local modules
 from room import Room
 from player import Player
 from monster import Monster

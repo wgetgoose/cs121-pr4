@@ -1,5 +1,3 @@
-import os
-import random
 import term
 
 class Player:
