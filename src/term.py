@@ -46,7 +46,7 @@ def printSituation(player):
 
 def combatSituation(player, monster, turn):
     clear()
-    animationPrint("Turn " + str(turn) + " | Your health: " + str(player.health) + " | " + monster.name + "'s health: " + str(monster.health) + "\n", 0.01)
+    print("Turn " + str(turn) + " | Your health: " + str(player.health) + " | " + monster.name + "'s health: " + str(monster.health) + "\n")
     hold()
 
 def combatStatus(attacker, receiver, damage, criticalHit):

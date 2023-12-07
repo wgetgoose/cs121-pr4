@@ -62,9 +62,12 @@ def monsterSave(save, monster, dir):
     dict['desc'] = monster.desc
     dict['health'] = monster.health
     dict['damage'] = monster.damage
-    dict['id'] = monster.id
+    if monster.drop:
+        itemSave(save, monster.drop, working)
+        dict['drop'] = monster.drop.name
+    else:
+        dict['drop'] = None
     write(dict)
-
 
 def itemSave(save, item, dir):
     def write(dict):
@@ -74,7 +77,6 @@ def itemSave(save, item, dir):
     dict = {}
     dict['name'] = item.name
     dict['desc'] = item.desc
-    dict['id'] = item.id
     if item.type == "note":
         dict['type'] = item.type
         dict['content'] = item.content
@@ -98,6 +100,7 @@ def roomSave(save, room):
     os.mkdir(working)
     os.mkdir(working + "/items")
     os.mkdir(working + "/monsters")
+    os.mkdir(working + "/monsters/items")
     dict = {}
     dict['name'] = room.name
     dict['desc'] = room.desc

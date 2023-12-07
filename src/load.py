@@ -67,34 +67,58 @@ def playerLoad(save, world):
 
 def monsterLoad(room, dir):
     for monster in os.listdir(dir):
-        dict = dictParse(dir + "/" + monster)
+        try: 
+            dict = dictParse(dir + "/" + monster)
+        except IsADirectoryError:
+            continue
         name = dict['name']
         desc = dict['desc']
         health = dict['health']
         damage = dict['damage']
-        id = dict['id']
-        m = Monster(name, desc, health, damage, room, id) 
+        drop = None
+        if dict['drop']:
+            drop = dropLoad(dir + "/" + "items/" + dict['drop'] + ".json")
+        m = Monster(name, desc, health, damage, room, drop) 
+
+def dropLoad(dir):
+    dict = dictParse(dir)
+    name = dict['name']
+    desc = dict['desc']
+    if dict['type'] == "note":
+        content = dict['content']
+        i = Note(name, desc)
+        i.content = content
+        return i
+    elif dict['type'] == "weapon":
+        damage = dict['damage']
+        i = Weapon(name, desc, damage)
+        return i
+    elif dict['type'] == "potion":
+        heal = dict['heal']
+        i = Potion(name, desc, heal)
+        return i
+    else:
+        return
 
 def itemLoad(loc, dir):
     for item in os.listdir(dir):
         dict = dictParse(dir + "/" + item)
         name = dict['name']
         desc = dict['desc']
-        id = dict['id']
         if dict['type'] == "note":
             content = dict['content']
-            i = Note(name, desc, id)
+            i = Note(name, desc)
             i.loc = loc
             i.content = content
             loc.items.append(i)
         elif dict['type'] == "weapon":
             damage = dict['damage']
-            i = Weapon(name, desc, damage, id)
+            i = Weapon(name, desc, damage)
             i.loc = loc
             loc.items.append(i)
         elif dict['type'] == "potion":
             heal = dict['heal']
-            i = Potion(name, desc, heal, id)
+            i = Potion(name, desc, heal)
             i.loc = loc
             loc.items.append(i)
         else:

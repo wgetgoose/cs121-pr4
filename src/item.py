@@ -1,11 +1,10 @@
 from term import animationPrint, hold, clear, animateHold
 
 class Item:
-    def __init__(self, name, desc, id):
+    def __init__(self, name, desc):
         self.name = name
         self.desc = desc
         self.loc = None
-        self.id = id
     def describe(self):
         clear()
         animationPrint(self.desc)
@@ -15,8 +14,8 @@ class Item:
         room.addItem(self)
 
 class Note(Item):
-    def __init__(self, name, desc, id):
-        Item.__init__(self, name, desc, id)
+    def __init__(self, name, desc):
+        Item.__init__(self, name, desc)
         self.type = "note"
         self.content = ""
     def use(self, player):
@@ -27,8 +26,8 @@ class Note(Item):
         print(self.name + " | Type: " + self.type + " | Description: " + self.desc)
 
 class Weapon(Item):
-    def __init__(self, name, desc, damage, id):
-        Item.__init__(self, name, desc, id)
+    def __init__(self, name, desc, damage):
+        Item.__init__(self, name, desc)
         self.type = "weapon"
         self.damage = damage
     def inspect(self):
@@ -36,12 +35,14 @@ class Weapon(Item):
 
 
 class Potion(Item):
-    def __init__(self, name, desc, heal, id):
-        Item.__init__(self, name, desc, id)
+    def __init__(self, name, desc, heal):
+        Item.__init__(self, name, desc)
         self.type = "potion"
         self.heal = heal
     def use(self, player):
         player.health = player.health + self.heal
+        if player.health > 100:
+            player.health = 100
         print("You now have " + str(player.health) + " health!")
         player.items.remove(self)
         hold()

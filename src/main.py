@@ -16,7 +16,7 @@ def initialize():
     world = g[0]
     player = g[1]
     player.name = input("Before we begin, what is your name?\n" + inputChar)
-    # term.printIntro()
+    term.printIntro()
 
 def createSave(name):
     global player
@@ -108,6 +108,8 @@ while playing and player.alive:
             item = player.getItemByName(target)
             if item != False:
                 item.use(player)
+                if item.name == "Victory":
+                    playing = False
             else:
                 print("Invalid item! Please try again.")
                 commandSuccess = False
@@ -139,8 +141,8 @@ while playing and player.alive:
                 else:
                     term.clear()
                     print("You have defeated " + target.name + "!")
-                    term.hold()
                     target.die()
+                    term.hold()
             else:
                 print("Invalid opponent! Please try again")
                 commandSuccess = False
@@ -148,7 +150,7 @@ while playing and player.alive:
             target = command[5:]
             if target == "list":
                 load.listSaves()
-            if target == "":
+            elif target == "":
                 print("Creating new save...")
                 createSave(input("Name of save?: "))
             else:

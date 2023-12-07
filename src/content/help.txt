@@ -7,11 +7,10 @@ Welcome to the help menu! Here are the "rules" behind the game
         - Note:   various messages that can be read throughout the game
     - Combat
         - During combat, your currently equipped weapon is used to calculate damage dealt
-        - Monsters deal constant damage
         - You have a 50/50 chance of "going first" in combat
-        - Players have a 10% critical hit chance, which deals 1.5x damage
-        - Monsters have varying critical hit chances depending on their difficulty
-        - Potions can be used to heal before, during, or after combat
+        - Players and Monsters have a 10% critical hit chance, which deals 1.5x damage
+        - Monsters have varying HP and damage depending on their difficulty
+        - Potions can be used to heal before or after combat
     - Save
         - You can save your game at any time except for active combat
         - There is nothing preventing you from abusing the save system, but that's no fun
