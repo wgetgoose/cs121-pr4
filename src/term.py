@@ -33,7 +33,7 @@ def printSituation(player):
     if player.loc.hasMonsters():
         print(str(player.loc.name) + "'s Occupants:")
         for m in player.loc.monsters:
-            print(m.name + " | Health: " + str(m.health) + " | Damage: " + str(m.damage))
+            print(m.name + " | Health: " + str(m.health) + " | Damage: " + str(m.damage) + " | Description: " + m.desc)
         print()
     if player.loc.hasItems():
         print("This room contains the following items:")
