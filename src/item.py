@@ -31,12 +31,6 @@ class Weapon(Item):
         self.type = "weapon"
         self.damage = damage
 
-class Food(Item):
-    def __init__(self, name, desc, heal, id):
-        Item.__init__(self, name, desc, id)
-        self.type = "food"
-        self.heal = heal
-
 class Potion(Item):
     def __init__(self, name, desc, heal, id):
         Item.__init__(self, name, desc, id)

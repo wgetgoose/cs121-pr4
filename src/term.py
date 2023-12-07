@@ -27,7 +27,7 @@ def animateHold():
 
 def printSituation(player):
     clear()
-    print("Day " + str(player.day) + " | Health: " + str(player.health) + " | Location: " + str(player.loc.desc) + " | Equipped: " + str((player.equipped.name)))
+    print("Health: " + str(player.health) + " | Location: " + str(player.loc.desc) + " | Equipped: " + str((player.equipped.name)))
     print()
     if player.loc.hasMonsters():
         print(str(player.loc.desc) + "'s Occupants:")
@@ -46,11 +46,16 @@ def printSituation(player):
 
 def combatSituation(player, monster, turn):
     clear()
-    animationPrint("Turn " + str(turn) + " | Your health: " + str(player.health) + " | " + monster.name + "'s health: " + str(monster.health), 0.02)
+    animationPrint("Turn " + str(turn) + " | Your health: " + str(player.health) + " | " + monster.name + "'s health: " + str(monster.health) + "\n", 0.01)
     hold()
 
-def combatStatus(attacker, receiver, damage):
-    print(attacker.name + " deals " + str(damage) + " damage to " + receiver.name + ". Their health is now " + str(receiver.health))
+def combatStatus(attacker, receiver, damage, criticalHit):
+    data = (attacker.name + " deals " + str(damage) + " damage to " + receiver.name + ". Their health is now " + str(receiver.health))
+    if criticalHit == True:
+        print("Critical Hit! " + data)
+    else:
+        print(data)
+
 
 def showHelp():
     clear()

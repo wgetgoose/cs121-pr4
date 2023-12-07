@@ -1,7 +1,9 @@
 go <direction> -- moves you in the given direction
-inventory -- opens your inventory
 pickup <item> -- picks up the item
 drop <item> -- drop an item from your inventory
+use <item> -- use an item, such as a potion or food
+equip <item> -- equip a weapon in your inventory
+inventory -- opens your inventory (maxiumum size of ???)
 attack <monster> -- attacks the given enemy
-sleep -- replenish tiredness and the world begins a new day
-Press enter to continue...
+help -- access this help menu
+exit -- quit the game, also available as "quit" or "quit()"

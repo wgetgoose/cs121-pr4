@@ -11,9 +11,10 @@ import random
 #   items --> item logic in rooms is par with monsters
 #   
 class Room:
-    def __init__(self, desc, exits, world):
+    def __init__(self, name, desc, world):
+        self.name = name
         self.desc = desc
-        self.exits = exits
+        self.exits = []
         self.world = world
         self.world.register(self)
         self.monsters = []

@@ -5,9 +5,10 @@ from monster import Monster
 from world import World
 from generator import generate
 from combat import combat
-from item import Weapon, Note, Food, Potion
-import updater
+from item import Weapon, Note, Potion
 import term
+import savegame
+import load
 
 def initialize():
     global player
@@ -15,34 +16,63 @@ def initialize():
     g = generate()
     world = g[0]
     player = g[1]
+    player.name = input("Before we begin, what is your name?\n" + inputChar)
+    # term.printIntro()
+
+def createSave(name):
+    global player
+    global world
+    s = savegame.initSave(name)
+    for room in world.rooms:
+        savegame.roomSave(s, room)
+    savegame.playerSave(s, player)
+
+def loadSave(save):
+    global player
+    global world
+    load.roomLoad(save, world)
+    for room in world.rooms:
+        for entry in room.exits:
+            entry[1] = world.getRoomByName(entry[1])
+    player = load.playerLoad(save, world)
+
 
 inputChar = term.inputChar()
-world = None
+world = World()
 player = None
-initialize()
-player.name = input("Before we begin, what is your name?\n" + inputChar)
-printIntro()
+
+if savegame.checkSaves() == False:
+    initialize()
+else:
+    command = input("Would you like to load a save? Y/N: ")
+    if command == "Y":
+        load.listSaves()
+        target = input("Please select save file by name: ")
+        s = load.getSave(target)
+        loadSave(s)
+
 playing = True
 
 while playing and player.alive:
-    printSituation(player)
+    term.printSituation(player)
     commandSuccess = False
     timePasses = False
     while not commandSuccess:
         commandSuccess = True
-        # ASCII escape chars to make input command "blink" on certain compatible terminals
         command = input(inputChar)
         # Fixes "index out of range" when user presses enter instead of entering command
         if not command:
             print("Invalid command! Please try again")
             commandSuccess = False
             continue
+
         commandWords = command.split()
         firstArgument = commandWords[0].lower()
-        if firstArgument == "go":   #cannot handle multi-word directions
+
+        if firstArgument == "go":
             player.goDirection(commandWords[1]) 
             timePasses = True
-        elif firstArgument == "pickup":  #can handle multi-word objects
+        elif firstArgument == "pickup":
             if len(player.items) >= 30:
                 print("Inventory is full. Please drop an item.")
                 commandSuccess = False
@@ -78,16 +108,10 @@ while playing and player.alive:
             else:
                 print("Not a valid item. Please try again.")
                 commandSuccess = False
-        elif firstArgument == "sleep":
-            player.day = player.day + 1
-            clear()
-            animationPrint("Sleep well!")
-            print()
-            animationPrint(". . . . . .", 0.3)
         elif firstArgument == "inventory":
             player.showInventory()
         elif firstArgument == "help":
-            showHelp()
+            term.showHelp()
         elif firstArgument == "exit" or firstArgument == "quit" or firstArgument == "quit()":
             playing = False
         elif firstArgument == "attack":
@@ -102,15 +126,16 @@ while playing and player.alive:
                 if loser == player:
                     player.die()
                 else:
-                    clear()
+                    term.clear()
                     print("You have defeated " + target.name + "!")
-                    hold()
+                    term.hold()
                     target.die()
             else:
                 print("Invalid opponent. Please try again")
                 commandSuccess = False
+        elif firstArgument == "save":
+            createSave(input("Name of savefile?: "))
+            playing = False
         else:
             print("Invalid command. Please try again")
             commandSuccess = False
-    if timePasses == True:
-        updater.updateAll()

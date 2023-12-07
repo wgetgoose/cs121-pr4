@@ -7,4 +7,8 @@ class World():
         return self.id
     def register(self, room):
         self.rooms.append(room)
+    def getRoomByName(self, name):
+        for room in self.rooms:
+            if room.name == name:
+                return room
     

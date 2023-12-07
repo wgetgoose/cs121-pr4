@@ -1,6 +1,5 @@
 import random
 import updater
-from combat import criticalHit
 
 class Monster:
     def __init__(self, name, desc, health, damage, room, id):
@@ -24,5 +23,5 @@ class Monster:
     def die(self):
         self.loc.removeMonster(self)
         updater.deregister(self)
-    def attack(self):
-        return criticalHit(self.damage)
+    def getDamage(self):
+        return self.damage
