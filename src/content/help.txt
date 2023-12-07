@@ -6,4 +6,7 @@ equip <item> -- equip a weapon in your inventory
 inventory -- opens your inventory (maxiumum size of ???)
 attack <monster> -- attacks the given enemy
 help -- access this help menu
-exit -- quit the game, also available as "quit" or "quit()"
+save -- save the game
+save <name> -- save the game to a certain save file
+save list -- list all saves
+exit -- quit the game, also available as "quit" or "quit()". Will also autosave to last used savefile
