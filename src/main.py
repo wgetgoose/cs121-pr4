@@ -53,13 +53,13 @@ currSave = None
 if savegame.checkSaves() == False:
     initialize()
 else:
-    command = input("Would you like to load a save? Y/N: ")
-    if command == "Y":
+    command = input("Would you like to load a save\nEnter Y for yes, N for no: ")
+    if command.lower() == "y":
         load.listSaves()
         target = input("Please select save file by name: ")
         s = load.getSave(target)
         loadSave(s)
-    if command == "N":
+    if command.lower() == "n":
         initialize()
 
 playing = True
@@ -84,7 +84,7 @@ while playing and player.alive:
             player.goDirection(commandWords[1]) 
             timePasses = True
         elif firstArgument == "pickup":
-            if len(player.items) >= 30:
+            if len(player.items) >= 5:
                 print("Inventory is full. Please drop an item.")
                 commandSuccess = False
             else:
@@ -93,7 +93,7 @@ while playing and player.alive:
                 if target != False:
                     player.pickup(target)
                 else:
-                    print("No such item")
+                    print("Invalid item! Please try again")
                     commandSuccess = False
         elif firstArgument == "drop":
             targetName = command[5:]
@@ -101,7 +101,7 @@ while playing and player.alive:
             if target != False:
                 player.drop(target)
             else:
-                print("No such item")
+                print("Invalid item! Please try again")
                 commandSuccess = False
         elif firstArgument == "use":
             target = command[4:]
@@ -109,7 +109,7 @@ while playing and player.alive:
             if item != False:
                 item.use(player)
             else:
-                print("Not a valid item. Please try again.")
+                print("Invalid item! Please try again.")
                 commandSuccess = False
         elif firstArgument == "equip":
             target = command[6:]
@@ -117,7 +117,7 @@ while playing and player.alive:
             if item != False:
                 player.equipped = item
             else:
-                print("Not a valid item. Please try again.")
+                print("Invalid item! Please try again.")
                 commandSuccess = False
         elif firstArgument == "inventory":
             player.showInventory()
@@ -142,7 +142,7 @@ while playing and player.alive:
                     term.hold()
                     target.die()
             else:
-                print("Invalid opponent. Please try again")
+                print("Invalid opponent! Please try again")
                 commandSuccess = False
         elif firstArgument == "save":
             target = command[5:]
@@ -158,6 +158,15 @@ while playing and player.alive:
                 else:
                     print("Error, try again")
                     commandSuccess = False
+        elif firstArgument == "inspect":
+            target = command[8:]
+            item = player.getItemByName(target)
+            if item != False:
+                item.inspect()
+                commandSuccess = False
+            else:
+                commandSuccess = False
+                print("Invalid item! Please try again")
         else:
-            print("Invalid command. Please try again")
+            print("Invalid command! Please try again")
             commandSuccess = False

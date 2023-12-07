@@ -1,4 +1,6 @@
 You find yourself lying face first in the dirt, groggy and flustered, unsure of where you are.
 Rolling over, you see the sun shining down through a hole in the ground.
 Of course, this is where you just fell through...       
-Out of the corner of your eye you see a sheet of paper. To pick it up, use the commands available by typing "help"
+It's dark, but your eyes start to adjust. You see two corridors, as well as a note left on the ground.
+Welcome to the  C a v e  o f  D e s p a i r   
+Type "help" to see available controls. Good Luck!

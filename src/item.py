@@ -1,4 +1,3 @@
-import os
 from term import animationPrint, hold, clear, animateHold
 
 class Item:
@@ -24,12 +23,17 @@ class Note(Item):
         clear()
         animationPrint(self.content)
         animateHold()
+    def inspect(self):
+        print(self.name + " | Type: " + self.type + " | Description: " + self.desc)
 
 class Weapon(Item):
     def __init__(self, name, desc, damage, id):
         Item.__init__(self, name, desc, id)
         self.type = "weapon"
         self.damage = damage
+    def inspect(self):
+        print(self.name + " | Type: Weapon, " + str(self.damage) + " damage | Description: " + self.desc)
+
 
 class Potion(Item):
     def __init__(self, name, desc, heal, id):
@@ -41,3 +45,5 @@ class Potion(Item):
         print("You now have " + str(player.health) + " health!")
         player.items.remove(self)
         hold()
+    def inspect(self):
+        print(self.name + " | Type: Potion, " + str(self.healing) + " healing | Description: " + self.desc)

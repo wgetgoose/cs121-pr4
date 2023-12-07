@@ -27,21 +27,21 @@ def animateHold():
 
 def printSituation(player):
     clear()
-    print("Health: " + str(player.health) + " | Location: " + str(player.loc.desc) + " | Equipped: " + str((player.equipped.name)))
+    print("Health: " + str(player.health) + " | Location: " + str(player.loc.name) + " | Equipped: " + str((player.equipped.name)))
+    print("Location Description: " + player.loc.desc)
     print()
     if player.loc.hasMonsters():
-        print(str(player.loc.desc) + "'s Occupants:")
+        print(str(player.loc.name) + "'s Occupants:")
         for m in player.loc.monsters:
-            print(m.name)
+            print(m.name + " | Health: " + str(m.health) + " | Damage: " + str(m.damage))
         print()
     if player.loc.hasItems():
         print("This room contains the following items:")
         for i in player.loc.items:
-            print(i.name)
+            print(i.name + " | Type: " + str(i.type))
         print()
     print("You can go in the following directions:")
-    for e in player.loc.exitNames():
-        print(e)
+    print(player.loc.exitNames())
     print()
 
 def combatSituation(player, monster, turn):
@@ -63,12 +63,12 @@ def showHelp():
     input("Press enter to continue...")
 
 
-# Don't like how messy the text is. Will probably change these to text files or some other sort of storage.
 def printIntro():
     clear()
     intro = parse('content/welcome.txt')
     animationPrint(intro)
     sleep(0.1)
+    print()
     animateHold()
 
 def showInventory(player):
@@ -76,7 +76,7 @@ def showInventory(player):
     print("You are currently carrying:")
     print()
     for i in player.items:
-        print(i.name)
+        print(i.name + " | Type: " + i.type)
     print()
     input("Press enter to continue...")
 

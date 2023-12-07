@@ -1,57 +1,41 @@
-# Project 4: Final Submission
+# README
 
-## Game Idea and Implementations
+# 🔦 Cave of Despair
 
-
-### Game Title: Cave of Despair
-
-### Story
-
-> ********************************The player wakes up groggily from a fall. They can see the light above, but calling out for helps results in no avail. Looking around, two paths to unfamiliar territory lie. Which direction will you go, player, to make it out of the Cave of Despair?********************************
+> A TUI-based exploration game where you, the player, have mysteriously fallen into the “Cave of Despair”. Explore the catacombs, discovering new items, fighting bosses, and divulging in the lore within the walls.
 > 
 
-### Initial Conditions
+## ⭐ Important Information
 
-- The player begins with 70hp, just shy of the 100hp possible throughout the game
-- The player also has a couple of items in their inventory, with tutorial messages (written by the last person to explore the cave, wink wink) guiding the player through the mechanics of the game, such as HP, inventory, hints, sleep and time, etc.
-- The players obstacles are twofold: rooms contain mobs, puzzles, and at points other variations of items they can interact with. Mobs may spring to defend a room, add amb
-    - ⚠️ Whether or not these rooms are randomly generated or not, I don’t know. There could be a threshold the player reaches before fighting the “final boss” in the “final room”. A mix of random and nonrandom generation?? To be explored.
+All the changes made to the original starter code can be tracked at the Github repo located here: [https://github.com/wgetgoose/cs121-pr4](https://github.com/wgetgoose/cs121-pr4). All code is located under the `src` dir. Additionally, a graphical representation of the game map can be found and opened using LibreOffice Draw. Also note that I worked on this project solo. Lots of additional modules and changes have been introduced, and you can compare the codebases directly by accessing the `starter-code` dir.
 
-## Completed Improvements
+## ➕ Added Features
 
----
+1. Animated printing to terminal
+2. “Note” items, which can be read
+3. “Weapon” items, which are used in combat sequences
+4. “Potion” items, which can heal the player
+5. 10% Critical Hit chance during combat sequences
+6. Pickup and Drop items from inventory
+7. Custom user name
+8. Revised situation display
+9. Inventory max size of 5
+10. Use of text files for storing long strings that are displayed to user
+11. User input character is ASCII formatted, so it “blinks”
+12. Ability to save game, including
+    1. Multiple save files
+    2. Ability for user to select save file on load
+    3. Using a save file skips the intro sequence
+13. An expanded (not randomly generated) map
+14. “Use” command, allowing players 
 
-1. Player can choose custom name
-2. Drop, pickup, and inventory size limitations)
-3. Animation on text for intro sequence, notes
-4. Weapons
-5. Potions
-6. Random “critical hit” chance during attack sequences
-7. Items and monsters are given global ID
-8. Sleep to pass into next day
-9. 
+## 🚧 Planned Improvements
 
-## Project Timeline
+- [ ]  Dialogue sequence during combat sequences
+- [ ]  Allow player to try and “run” from fight (with random success chance)
 
-- [ ]  November 21: Check-In
-    - 20 points of “improvement”
-    - Show progress in Lab
-- [ ]  December 1: Working Beta
-    - Send working beta version of game to assigned tester classmate. They will play the game and provide feedback
-- [ ]  December 4: Provide feedback for *************other person’s************* game
-- [ ]  December 6: Final Submission
+## 🔴 Current Oversights/Bugs
 
-## Official Project Requirements
-
-> You should create a document that lists all the improvements you made, and a brief
-explanation of what specifically you did for each improvement. (Sometimes there will be very little to say, but if the improvement gave you freedom to choose how things would work, you should say what you chose. If you have to add a new type of monster, for example, say what type you added and what if anything is special about it. You should also have a quick note about what code in what files was added/modified to make this work.)
-> 
-
-### Brainstorm
-
-- [ ]  Monsters have “death drops”
-    - When you defeat a monster, it will drop a useful item
-- [ ]  Food system
-    - Includes player hunger as well as food items that replenish this hunger
-- [ ]  Potions??
-    - These potions either heal, replenish tiredness, buff attack, etc
+- [ ]  Reduce case sensitivity by implementing `lower()` on various
+- [ ]  Do not allow player to load save after dying
+- [ ]  No code comments

@@ -1,12 +1,32 @@
+                        --- Cave of Despair ---
+Welcome to the help menu! Here are the "rules" behind the game
+    - Items
+        - Your inventory is limited to 5 items
+        - Weapon: your fighting tool
+        - Potion: heals
+        - Note:   various messages that can be read throughout the game
+    - Combat
+        - During combat, your currently equipped weapon is used to calculate damage dealt
+        - Monsters deal constant damage
+        - You have a 50/50 chance of "going first" in combat
+        - Players have a 10% critical hit chance, which deals 1.5x damage
+        - Monsters have varying critical hit chances depending on their difficulty
+        - Potions can be used to heal before, during, or after combat
+    - Save
+        - You can save your game at any time except for active combat
+        - There is nothing preventing you from abusing the save system, but that's no fun
+
+                           --- Commands ---    
 go <direction> -- moves you in the given direction
 pickup <item> -- picks up the item
 drop <item> -- drop an item from your inventory
 use <item> -- use an item, such as a potion or food
 equip <item> -- equip a weapon in your inventory
-inventory -- opens your inventory (maxiumum size of ???)
+inventory -- opens your inventory (maxiumum size of 5 items)
+inspect <item> -- provides description and statistics for items in inventory
 attack <monster> -- attacks the given enemy
 help -- access this help menu
 save -- save the game
-save <name> -- save the game to a certain save file
 save list -- list all saves
-exit -- quit the game, also available as "quit" or "quit()". Will also autosave to last used savefile
+save <name> -- save the game to a certain save file
+exit -- quit the game, also available as "quit" or "quit()"

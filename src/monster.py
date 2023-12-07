@@ -7,11 +7,8 @@ class Monster:
         self.id = id
         self.loc = room
         room.monsters.append(self)
-        # monsters are added to list of elements in global updater
     def update(self):
         return
-        # if random.random() < .5:
-        #     self.moveTo(self.loc.randomNeighbor())
     def moveTo(self, room):
         self.room.removeMonster(self)
         self.room = room

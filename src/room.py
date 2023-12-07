@@ -1,15 +1,5 @@
 import random
 
-
-# Room Class Summary
-# Each room has the following lists
-#   monsters --> Tracks monsters in the room, appended by functions
-#       addMonster and removeMonster imported into main.py
-#   exits --> tracks the connections between the rooms we create.
-#       very similar to linked lists, where rooms are "nodes" and our start
-#       room is the "root"
-#   items --> item logic in rooms is par with monsters
-#   
 class Room:
     def __init__(self, name, desc, world):
         self.name = name
@@ -26,7 +16,11 @@ class Room:
             if e[0] == direction:
                 return e[1]
     def exitNames(self):
-        return [e[0] for e in self.exits]
+        s = ""
+        for e in self.exits:
+            s = s + "\n" + e[0] + " --> " + e[1].name
+        s = s[1:]
+        return s
     def addItem(self, item):
         self.items.append(item)
     def removeItem(self, item):
